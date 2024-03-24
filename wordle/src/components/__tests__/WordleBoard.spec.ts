@@ -3,8 +3,9 @@ import WordleBoard from '../WordleBoard.vue'
 import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from '@/settings'
 
 describe('WordleBoard', () => {
+  let wordOfTheDay = "TESTS"
  test("a victory message", async() => {
-  const wrapper = mount(WordleBoard, { props: { wordOfTheDay: "TESTS" }})
+  const wrapper = mount(WordleBoard, { props: { wordOfTheDay }})
 
   const guessInput = wrapper.find("input[type=text]")
   await guessInput.setValue("TESTS")

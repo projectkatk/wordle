@@ -87,6 +87,7 @@ describe('WordleBoard', () => {
 
     test.skip("non-letter characters do not render on the screen while being typed", async () => {
       await playerSubmitsGuess("123")
+      await playerSubmitsGuess("12") // make test more robust by adding another one
 
       expect(wrapper.find<HTMLInputElement>('input[type=text]').element.value).toEqual("")
     })

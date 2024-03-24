@@ -2,9 +2,12 @@
 import {VICTORY_MESSAGE, DEFEAT_MESSAGE} from "@/settings"
 import {ref} from "vue"
 
-defineProps<{
-  wordOfTheDay: string
-}>()
+defineProps({
+  wordOfTheDay: {
+    type: String,
+    validator: (wordGiven: string) => wordGiven.length === 5
+  }
+})
 const guessInProgress = ref("")
 const guessSubmitted = ref("")
 </script>
@@ -12,5 +15,4 @@ const guessSubmitted = ref("")
 <template>
   <input type="text" v-model="guessInProgress" @keydown.enter="guessSubmitted = guessInProgress"/>
   <p v-if="guessSubmitted.length > 0" v-text="guessSubmitted === wordOfTheDay ? VICTORY_MESSAGE : DEFEAT_MESSAGE" />
-  <p>{{ wordOfTheDay }}</p>
 </template>

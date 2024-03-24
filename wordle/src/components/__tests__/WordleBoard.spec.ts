@@ -8,7 +8,6 @@ describe('WordleBoard', () => {
   let wrapper: ReturnType<typeof mount>;
   beforeEach(() => {
     wrapper = mount(WordleBoard, { props: { wordOfTheDay }})
-
   })
 
   async function playerSubmitsGuess(guess: string) {
@@ -38,23 +37,22 @@ describe('WordleBoard', () => {
   })
 
   describe("Rules for defining the word of the day", () => {
+    beforeEach(() => {
+      console.warn = vi.fn()
+    })
     test.each(
       [
         { wordOfTheDay: "FLY", reason: "length is less than 5" },
         { wordOfTheDay: "tests", reason: "every letter must be in uppercase" },
         { wordOfTheDay: "AQFJG", reason: "the word must be a valid English" }
       ]
-    )("Since $reason: $wordOfTheDay is invalid, a warning must be emitted", async({ wordOfTheDay }) => {
-      console.warn = vi.fn()
-    
+    )("Since $reason: $wordOfTheDay is invalid, a warning must be emitted", async({ wordOfTheDay }) => {    
       mount(WordleBoard, {props: {wordOfTheDay}})
     
       expect(console.warn).toHaveBeenCalled()
      })
     
-     test("no warning is needed if the word of the day is provided is a real uppercase English word with 5 characters", async() => {
-      console.warn = vi.fn()
-    
+     test("no warning is needed if the word of the day is provided is a real uppercase English word with 5 characters", async() => {    
       mount(WordleBoard, {props: {wordOfTheDay: "TESTS"}})
     
       expect(console.warn).not.toHaveBeenCalled()
